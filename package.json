@@ -6,7 +6,7 @@
   "scripts": {
     "start": "vite --open",
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node -e \"require('fs').writeFileSync('dist/.nojekyll','')\"",
     "lint": "eslint .",
     "preview": "vite preview"
   },

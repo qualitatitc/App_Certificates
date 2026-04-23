@@ -1,0 +1,573 @@
+:root {
+  --primary: #2d2d2d;
+  --primary-hover: #1a1a1a;
+  --accent: #facc15;
+  --accent-hover: #eab308;
+  --secondary: #f3f4f6;
+  --secondary-hover: #e5e7eb;
+  --background: #ffffff;
+  --text: #374151;
+  --border: #d1d5db;
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--background);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* Form Styles */
+.form-container {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 500px;
+  height: fit-content;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+select, input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  box-sizing: border-box;
+}
+
+select:focus, input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.1);
+}
+
+.btn-primary, .btn-secondary {
+  display: inline-block;
+  font-weight: 500;
+  text-align: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  width: 100%;
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: var(--primary);
+  width: auto;
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-hover);
+}
+
+/* Preview Actions */
+.preview-container {
+  width: 100%;
+  max-width: 210mm;
+  margin: 0 auto;
+}
+
+.preview-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.preview-actions .btn-primary,
+.preview-actions .btn-secondary {
+  width: auto;
+}
+
+/* A4 Page Styles */
+.a4-page {
+  background: white;
+  width: 210mm;
+  height: 297mm;
+  padding: 15mm;
+  box-sizing: border-box;
+  box-shadow: var(--shadow);
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Garantía: una sola A4, más aire entre bloques; firma abajo (flex) */
+.a4-page--warranty {
+  padding: 12mm 14mm;
+  font-size: 0.9rem;
+}
+
+.a4-page--warranty .cert-header {
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
+  flex-shrink: 0;
+}
+
+.a4-page--warranty .logo,
+.a4-page--warranty .iso-logo {
+  height: 42px;
+}
+
+.a4-page--warranty .header-text h1 {
+  font-size: 1.12rem;
+  line-height: 1.28;
+}
+
+.a4-page--warranty .header-text h2 {
+  font-size: 0.9rem;
+  margin: 0.35rem 0 0;
+  line-height: 1.28;
+}
+
+.a4-page--warranty .company-info {
+  margin-bottom: 0.9rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  flex-shrink: 0;
+}
+
+.a4-page--warranty .company-info p {
+  margin: 0.2rem 0;
+}
+
+.a4-page--warranty .date-info {
+  margin-bottom: 1.5rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  flex-shrink: 0;
+}
+
+.a4-page--warranty .date-info p + p {
+  margin-top: 0.35rem;
+}
+
+.a4-page--warranty .cert-preamble {
+  margin-bottom: 1.35rem;
+  line-height: 1.45;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.a4-page--warranty .cert-preamble p {
+  margin: 0.35rem 0;
+}
+
+.a4-page--warranty .cert-preamble em {
+  font-size: 0.88em;
+}
+
+.a4-page--warranty .product-info {
+  margin-bottom: 1.1rem;
+  padding: 0.85rem 1rem;
+  flex-shrink: 0;
+}
+
+.a4-page--warranty .product-info h3 {
+  font-size: 0.98rem;
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.4rem;
+}
+
+.a4-page--warranty .info-table {
+  font-size: 0.82rem;
+}
+
+.a4-page--warranty .info-table td {
+  padding: 0.42rem 0.45rem;
+  line-height: 1.45;
+}
+
+.a4-page--warranty .cert-warranty-after-product {
+  margin-top: 1.1rem;
+  line-height: 1.45;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.a4-page--warranty .cert-warranty-after-product p {
+  margin: 0.45rem 0;
+}
+
+.a4-page--warranty .cert-warranty-after-product em {
+  font-size: 0.88em;
+}
+
+.a4-page--warranty .cert-warranty-after-product__gap {
+  margin-top: 1.05rem;
+}
+
+/* El hueco sobrante queda entre el último párrafo y la firma */
+.a4-page--warranty .cert-footer {
+  margin-top: auto;
+  flex-shrink: 0;
+  padding-top: 0.75rem;
+}
+
+.a4-page--warranty .signature-area {
+  padding-top: 0.35rem;
+}
+
+.a4-page--warranty .signature {
+  height: 40px;
+  margin: 0.35rem 0;
+}
+
+.a4-page--warranty .signature-area p {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+}
+
+/* Certificate Inner Layout */
+.cert-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid var(--accent);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.logo {
+  height: 50px;
+}
+
+.iso-logo {
+  height: 50px;
+}
+
+.header-text {
+  text-align: center;
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+
+.header-text h2 {
+  margin: 0.25rem 0 0;
+  font-size: 1.1rem;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.company-info {
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+}
+
+.company-info p {
+  margin: 0.15rem 0;
+}
+
+.date-info {
+  margin-bottom: 2.25rem;
+  text-align: right;
+  font-size: 0.9rem;
+}
+
+.date-info p {
+  margin: 0;
+}
+
+.product-info {
+  margin-bottom: 1rem;
+  background-color: var(--secondary);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+}
+
+.product-info h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.25rem;
+  font-size: 1.1rem;
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.info-table td {
+  padding: 0.35rem;
+  border-bottom: 1px solid #cbd5e1;
+}
+
+.info-table tr:last-child td {
+  border-bottom: none;
+}
+
+.cert-text {
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  text-align: justify;
+  font-size: 0.95rem;
+}
+
+.cert-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+}
+
+.signature-area {
+  text-align: center;
+  width: 180px;
+  padding-top: 0.5rem;
+}
+
+.signature {
+  height: 50px;
+  margin: 0.5rem 0;
+}
+
+/* Print Styles */
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  body {
+    background: none;
+    margin: 0;
+    padding: 0;
+  }
+  .app {
+    padding: 0;
+    display: block;
+  }
+  .preview-actions {
+    display: none;
+  }
+  .a4-page {
+    box-shadow: none;
+    margin: 0;
+    padding: 20mm;
+    width: 210mm;
+    height: 297mm;
+  }
+
+  .a4-page--warranty {
+    padding: 11mm 13mm;
+  }
+}
+
+.cert-preamble {
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.cert-preamble p {
+  margin: 0.25rem 0;
+}
+
+.cert-body-extra {
+  margin-top: 2rem;
+  line-height: 1.5;
+}
+
+.cert-body-extra p {
+  margin: 0.5rem 0;
+}
+
+.cert-body-extra em {
+  font-size: 0.9em;
+  color: #64748b;
+}
+
+.cert-preamble em {
+  font-size: 0.9em;
+  color: #64748b;
+}
+
+/* Form Extensions */
+.radio-group {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+  width: auto;
+  margin: 0;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.1);
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Searchable Select Styles */
+.searchable-select-container {
+  position: relative;
+  width: 100%;
+}
+
+.searchable-select-input-container {
+  position: relative;
+}
+
+.searchable-select-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: white;
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 0.5rem 0.5rem;
+  max-height: 250px;
+  overflow-y: auto;
+  box-shadow: var(--shadow);
+  margin-top: 1px;
+}
+
+.searchable-select-option {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.searchable-select-option:last-child {
+  border-bottom: none;
+}
+
+.searchable-select-option:hover,
+.searchable-select-option.active {
+  background-color: var(--secondary);
+}
+
+.searchable-select-option .option-code {
+  font-weight: 600;
+  color: var(--primary);
+  margin-right: 0.5rem;
+}
+
+.searchable-select-option .option-desc {
+  color: #64748b;
+}
+
+.no-results {
+  padding: 1rem;
+  text-align: center;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* Scrollbar styling for the dropdown */
+.searchable-select-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.searchable-select-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.searchable-select-dropdown::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.searchable-select-dropdown::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

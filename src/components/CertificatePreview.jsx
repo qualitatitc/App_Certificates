@@ -168,8 +168,10 @@ export default function CertificatePreview({ data, onBack }) {
 
         <footer className="cert-footer">
           <div className="signature-area">
-            <img src={companyData.signatureUrl} alt="Signature" className="signature" />
             <p><strong>{companyData.responsibleRole}</strong></p>
+            <p className="signature-area__role-en">
+              <em><strong>{companyData.responsibleRoleEn}</strong></em>
+            </p>
           </div>
         </footer>
       </div>

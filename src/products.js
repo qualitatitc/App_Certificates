@@ -80,6 +80,6 @@ export const companyData = {
     ],
     logoUrl: logo,
     isoLogoUrl: isoLogo,
-    signatureUrl: 'https://placehold.co/150x80/ffffff/ffffff?text=',
-    responsibleRole: 'Departamento de Calidad'
+    responsibleRole: 'Departamento de Calidad',
+    responsibleRoleEn: 'Quality Department'
 };

@@ -1,5 +1,9 @@
 import React, { useRef } from 'react';
-import { companyData } from '../products.js';
+import {
+  companyData,
+  declarationConformityTypeIds,
+  DOCUMENT_REF_DELIVERY,
+} from '../products.js';
 import html2pdf from 'html2pdf.js';
 
 const CERT_IDS_PREAMBLE_BEFORE_PRODUCT = [
@@ -13,6 +17,7 @@ const CERT_IDS_PREAMBLE_BEFORE_PRODUCT = [
 export default function CertificatePreview({ data, onBack }) {
   const certRef = useRef();
   if (!data) return null;
+  const isCeConformity = data.type.id === 'dec_conf_ce';
 
   const handleDownloadPDF = () => {
     const element = certRef.current;
@@ -92,29 +97,106 @@ export default function CertificatePreview({ data, onBack }) {
           </div>
         )}
 
-        <section className="product-info">
-          <h3>Datos del Equipo / Product Data</h3>
-          <table className="info-table">
-            <tbody>
-              <tr>
-                <td><strong>Código / Code:</strong></td>
-                <td>{data.product.code}</td>
-              </tr>
-              <tr>
-                <td><strong>Descripción:</strong></td>
-                <td>{data.product.esDesc}</td>
-              </tr>
-              <tr>
-                <td><strong>Description:</strong></td>
-                <td>{data.product.enDesc}</td>
-              </tr>
-              <tr>
-                <td><strong>Número de Serie / S/N:</strong></td>
-                <td style={{ whiteSpace: 'pre-wrap' }}>{data.serialNumber}</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
+        {data.type.id === 'dec_conf' && data.invoiceOrDeliveryNote && (
+          <div className="cert-preamble">
+            <p>
+              Por el presente documento ITC certificamos que los productos detallados en (
+              {data.documentRefType === DOCUMENT_REF_DELIVERY ? 'el albarán' : 'la factura'} {data.invoiceOrDeliveryNote}
+              ) cumplen con las características técnicas descritas en el manual y hojas técnicas del producto.
+            </p>
+            <p>
+              <em>
+                By this document ITC certifies that the products detailed in (
+                {data.documentRefType === DOCUMENT_REF_DELIVERY ? 'the delivery note' : 'the invoice'} {data.invoiceOrDeliveryNote}
+                ) comply with the technical characteristics described in the product manual and technical data sheets.
+              </em>
+            </p>
+          </div>
+        )}
+
+        {data.type.id !== 'dec_conf' && (
+          <>
+            {!CERT_IDS_PREAMBLE_BEFORE_PRODUCT.includes(data.type.id) && (
+              <div className="cert-preamble">
+                <p>Por el presente documento ITC certifica que el producto siguiente:</p>
+                <p><em>By this document ITC certifies that the following product:</em></p>
+              </div>
+            )}
+            <section className="product-info">
+              <h3>Datos del Equipo / Product Data</h3>
+              <table className="info-table">
+                <tbody>
+                  <tr>
+                    <td><strong>Código / Code:</strong></td>
+                    <td>{data.product.code}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Descripción:</strong></td>
+                    <td>{data.product.esDesc}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Description:</strong></td>
+                    <td>{data.product.enDesc}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Número de Serie / S/N:</strong></td>
+                    <td style={{ whiteSpace: 'pre-wrap' }}>{data.serialNumber}</td>
+                  </tr>
+                  {data.invoiceOrDeliveryNote && (
+                    <tr>
+                      <td>
+                        <strong>
+                          {data.documentRefType === DOCUMENT_REF_DELIVERY
+                            ? 'Nº albarán / Delivery note no.:'
+                            : 'Nº factura / Invoice no.:'}
+                        </strong>
+                      </td>
+                      <td style={{ whiteSpace: 'pre-wrap' }}>{data.invoiceOrDeliveryNote}</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </section>
+          </>
+        )}
+
+        {isCeConformity && (
+          <section className="cert-text cert-text--ce">
+            <p>
+              Cumple la Directiva de Máquinas 2006/042/CE y la Directiva de Baja Tensión D2014/35/UE, siempre que la
+              instalación, el uso y el mantenimiento se efectúen de acuerdo con la normativa vigente y siguiendo las
+              indicaciones del manual de instrucciones.
+            </p>
+            <p>
+              <em>
+                Complies with the Machinery Directive 2006/042/EC and the Low Voltage Directive D2014/35/EU, provided
+                that installation, use and maintenance are carried out in accordance with current regulations and
+                following the instructions in the user manual.
+              </em>
+            </p>
+            <p className="cert-ce-norms">
+              <strong>Normas/norms: EN12100:2012 - EN 60204-1:2019</strong>
+            </p>
+          </section>
+        )}
+
+        {isCeConformity && (
+          <section className="cert-ce-technical-file">
+            <div className="cert-ce-technical-file__left">
+              <p>Persona autorizada para recopilar el archivo técnico:</p>
+              <p>
+                <em>Person authorised to compile technical file:</em>
+              </p>
+            </div>
+            <div className="cert-ce-technical-file__right">
+              <p>{companyData.technicalManagerRole}</p>
+              <p>
+                <em>{companyData.technicalManagerRoleEn}</em>
+              </p>
+              <p>{companyData.technicalManagerName}</p>
+            </div>
+          </section>
+        )}
 
         {['cert_mat_21', 'cert_mat_22', 'cert_mat_31'].includes(data.type.id) && (
           <div className="cert-body-extra">
@@ -160,17 +242,56 @@ export default function CertificatePreview({ data, onBack }) {
           </div>
         )}
 
-        {data.type.id !== 'cert_calidad' && data.type.text && (
-          <section className="cert-text">
-            <p>{data.type.text}</p>
-          </section>
-        )}
+        {data.type.id !== 'cert_calidad' &&
+          data.type.id !== 'dec_conf' &&
+          data.type.id !== 'dec_conf_ce' &&
+          (() => {
+            const isDecl =
+              declarationConformityTypeIds.includes(data.type.id) &&
+              data.type.declarationTexts &&
+              data.documentRefType &&
+              data.type.declarationTexts[data.documentRefType];
+            if (isDecl) {
+              const t = data.type.declarationTexts[data.documentRefType];
+              return (
+                <section className="cert-text">
+                  <p>{t.es}</p>
+                  <p>
+                    <em>{t.en}</em>
+                  </p>
+                </section>
+              );
+            }
+            if (data.type.text) {
+              return (
+                <section className="cert-text">
+                  <p>{data.type.text}</p>
+                </section>
+              );
+            }
+            return null;
+          })()}
 
-        <footer className="cert-footer">
+        <footer
+          className={`cert-footer${data.type.id === 'dec_conf' ? ' cert-footer--inline' : ''}${
+            isCeConformity ? ' cert-footer--ce' : ''
+          }`}
+        >
           <div className="signature-area">
-            <p><strong>{companyData.responsibleRole}</strong></p>
+            {isCeConformity && companyData.generalManagerSignatureUrl && (
+              <img
+                src={companyData.generalManagerSignatureUrl}
+                alt="General manager signature"
+                className="signature signature--ce"
+              />
+            )}
+            <p>
+              <strong>{isCeConformity ? companyData.generalManagerRole : companyData.responsibleRole}</strong>
+            </p>
             <p className="signature-area__role-en">
-              <em><strong>{companyData.responsibleRoleEn}</strong></em>
+              <em>
+                <strong>{isCeConformity ? companyData.generalManagerRoleEn : companyData.responsibleRoleEn}</strong>
+              </em>
             </p>
           </div>
         </footer>

@@ -394,10 +394,49 @@ select:focus, input:focus {
   font-size: 0.95rem;
 }
 
+.cert-text--ce {
+  margin-top: 0.35rem;
+  margin-bottom: 0.8rem;
+}
+
+.cert-ce-norms {
+  margin-top: 0.5rem !important;
+  text-align: left;
+}
+
+.cert-ce-technical-file {
+  margin-top: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+.cert-ce-technical-file__left,
+.cert-ce-technical-file__right {
+  flex: 1;
+}
+
+.cert-ce-technical-file__right {
+  text-align: right;
+}
+
+.cert-ce-technical-file p {
+  margin: 0.15rem 0;
+}
+
 .cert-footer {
   display: flex;
   justify-content: flex-end;
   margin-top: auto;
+}
+
+.cert-footer--inline {
+  margin-top: 5rem;
+}
+
+.cert-footer--ce {
+  margin-top: 3.6rem;
 }
 
 .signature-area {
@@ -429,6 +468,11 @@ select:focus, input:focus {
   width: auto;
   max-width: 100%;
   object-fit: contain;
+}
+
+.signature--ce {
+  max-height: 64px;
+  margin: 0 auto 0.25rem;
 }
 
 /* Print Styles */

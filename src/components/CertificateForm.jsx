@@ -1,5 +1,11 @@
 import React from 'react';
-import { products, certificateTypes } from '../products.js';
+import {
+  products,
+  certificateTypes,
+  declarationDocumentRefRequiredTypeIds,
+  DOCUMENT_REF_INVOICE,
+  DOCUMENT_REF_DELIVERY,
+} from '../products.js';
 import SearchableSelect from './SearchableSelect';
 
 function formatDateToDDMMYYYY(date) {
@@ -43,6 +49,9 @@ export default function CertificateForm({ onGenerate }) {
     formatDateToDDMMYYYY(new Date())
   );
 
+  const [invoiceOrDeliveryNote, setInvoiceOrDeliveryNote] = React.useState('');
+  const [documentRefType, setDocumentRefType] = React.useState(DOCUMENT_REF_INVOICE);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (selectedType && selectedProduct) {
@@ -53,6 +62,13 @@ export default function CertificateForm({ onGenerate }) {
 
       if (!finalSN) return alert('Por favor, introduzca el número de serie');
 
+      if (declarationDocumentRefRequiredTypeIds.includes(selectedType)) {
+        const inv = invoiceOrDeliveryNote.trim();
+        if (!inv) {
+          return alert('Por favor, introduzca el número de factura o albarán');
+        }
+      }
+
       const parsedDate = parseDDMMYYYY(emissionDateDisplay);
       if (!parsedDate) {
         return alert('La fecha no es válida. Use el formato dd/mm/aaaa (ejemplo: 22/04/2026).');
@@ -60,7 +76,17 @@ export default function CertificateForm({ onGenerate }) {
 
       const type = certificateTypes.find(t => t.id === selectedType);
       const product = products.find(p => p.id === selectedProduct);
-      onGenerate({ type, product, serialNumber: finalSN, date: toISODateString(parsedDate) });
+      const payload = {
+        type,
+        product,
+        serialNumber: finalSN,
+        date: toISODateString(parsedDate),
+      };
+      if (declarationDocumentRefRequiredTypeIds.includes(selectedType)) {
+        payload.invoiceOrDeliveryNote = invoiceOrDeliveryNote.trim();
+        payload.documentRefType = documentRefType;
+      }
+      onGenerate(payload);
     }
   };
 
@@ -70,7 +96,18 @@ export default function CertificateForm({ onGenerate }) {
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Tipo de Certificado:</label>
-          <select value={selectedType} onChange={e => setSelectedType(e.target.value)} required>
+          <select
+            value={selectedType}
+            onChange={(e) => {
+              const v = e.target.value;
+              setSelectedType(v);
+              if (!declarationDocumentRefRequiredTypeIds.includes(v)) {
+                setInvoiceOrDeliveryNote('');
+                setDocumentRefType(DOCUMENT_REF_INVOICE);
+              }
+            }}
+            required
+          >
             <option value="">Seleccione un tipo...</option>
             {certificateTypes.map(type => (
               <option key={type.id} value={type.id}>{type.name}</option>
@@ -148,6 +185,53 @@ export default function CertificateForm({ onGenerate }) {
               rows="4"
             />
           </div>
+        )}
+
+        {declarationDocumentRefRequiredTypeIds.includes(selectedType) && (
+          <>
+            <div className="form-group animate-fade-in">
+              <label>Documento de referencia:</label>
+              <div className="radio-group">
+                <label className="radio-label">
+                  <input
+                    type="radio"
+                    name="documentRef"
+                    checked={documentRefType === DOCUMENT_REF_INVOICE}
+                    onChange={() => setDocumentRefType(DOCUMENT_REF_INVOICE)}
+                  />
+                  Factura
+                </label>
+                <label className="radio-label">
+                  <input
+                    type="radio"
+                    name="documentRef"
+                    checked={documentRefType === DOCUMENT_REF_DELIVERY}
+                    onChange={() => setDocumentRefType(DOCUMENT_REF_DELIVERY)}
+                  />
+                  Albarán
+                </label>
+              </div>
+            </div>
+            <div className="form-group animate-fade-in">
+              <label>
+                {documentRefType === DOCUMENT_REF_INVOICE
+                  ? 'Número de factura:'
+                  : 'Número de albarán:'}
+              </label>
+              <input
+                type="text"
+                value={invoiceOrDeliveryNote}
+                onChange={(e) => setInvoiceOrDeliveryNote(e.target.value)}
+                placeholder={
+                  documentRefType === DOCUMENT_REF_INVOICE
+                    ? 'Ej. F-2026-0123'
+                    : 'Ej. A-456'
+                }
+                required
+                autoComplete="off"
+              />
+            </div>
+          </>
         )}
 
         <div className="form-group">

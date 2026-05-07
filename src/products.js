@@ -17,7 +17,6 @@ export const declarationConformityTypeIds = [
 /** Tipos que requieren seleccionar factura/albarán y su número. */
 export const declarationDocumentRefRequiredTypeIds = [
   'dec_conf_rohs',
-  'dec_conf_ensayo_22',
   'dec_conf',
 ];
 

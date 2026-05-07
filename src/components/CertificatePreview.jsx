@@ -18,6 +18,7 @@ export default function CertificatePreview({ data, onBack }) {
   const certRef = useRef();
   if (!data) return null;
   const isCeConformity = data.type.id === 'dec_conf_ce';
+  const isDeclarationTest22 = data.type.id === 'dec_conf_ensayo_22';
 
   const handleDownloadPDF = () => {
     const element = certRef.current;
@@ -118,8 +119,17 @@ export default function CertificatePreview({ data, onBack }) {
           <>
             {!CERT_IDS_PREAMBLE_BEFORE_PRODUCT.includes(data.type.id) && (
               <div className="cert-preamble">
-                <p>Por el presente documento ITC certifica que el producto siguiente:</p>
-                <p><em>By this document ITC certifies that the following product:</em></p>
+                {isDeclarationTest22 ? (
+                  <>
+                    <p>Por el presente documento ITC declara que el producto siguiente:</p>
+                    <p><em>By this document ITC declares that the following product:</em></p>
+                  </>
+                ) : (
+                  <>
+                    <p>Por el presente documento ITC certifica que el producto siguiente:</p>
+                    <p><em>By this document ITC certifies that the following product:</em></p>
+                  </>
+                )}
               </div>
             )}
             <section className="product-info">
@@ -157,6 +167,88 @@ export default function CertificatePreview({ data, onBack }) {
                 </tbody>
               </table>
             </section>
+            {isDeclarationTest22 && (
+              <section className="cert-test-22">
+                <p>
+                  Ha sido fabricado y verificado en ITC, y cumple con las especificaciones técnicas y de materiales
+                  detalladas en el manual de usuario, hojas técnicas o tarifa de precios.
+                </p>
+                <p>
+                  <em>
+                    It has been manufactured and verified at ITC, and complies with the technical and material
+                    specifications detailed in the user manual, technical data sheets or price list.
+                  </em>
+                </p>
+                <table className="test-features-table">
+                  <thead>
+                    <tr>
+                      <th />
+                      <th>
+                        Características ensayadas
+                        <br />
+                        <em>Tested features</em>
+                      </th>
+                      <th>
+                        Resultado
+                        <br />
+                        <em>Result</em>
+                      </th>
+                      <th>
+                        Observaciones
+                        <br />
+                        <em>Comments</em>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Flow rate at 3 bar</td>
+                      <td>OK</td>
+                      <td>flowmeter</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Noise</td>
+                      <td>OK</td>
+                      <td>Sonometer</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Oil leakage</td>
+                      <td>OK</td>
+                      <td>Visual</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>Sealing</td>
+                      <td>OK</td>
+                      <td>Visual</td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>Motor consumption</td>
+                      <td>OK</td>
+                      <td>Ammeter</td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td>Temperature</td>
+                      <td>OK</td>
+                      <td>Thermometer</td>
+                    </tr>
+                    <tr>
+                      <td>7</td>
+                      <td>No inyección al 0%</td>
+                      <td>OK</td>
+                      <td>Visual</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p>Las pruebas se han realizado en el banco de pruebas de ITC con agua a temperatura ambiente.</p>
+                <p><em>The tests have been carried out in the ITC test bench with water at room temperature.</em></p>
+              </section>
+            )}
           </>
         )}
 
@@ -245,6 +337,7 @@ export default function CertificatePreview({ data, onBack }) {
         {data.type.id !== 'cert_calidad' &&
           data.type.id !== 'dec_conf' &&
           data.type.id !== 'dec_conf_ce' &&
+          data.type.id !== 'dec_conf_ensayo_22' &&
           (() => {
             const isDecl =
               declarationConformityTypeIds.includes(data.type.id) &&

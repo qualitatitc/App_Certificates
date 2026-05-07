@@ -544,6 +544,65 @@ select:focus, input:focus {
   color: #64748b;
 }
 
+.cert-test-22 {
+  margin-top: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.cert-test-22 p {
+  margin: 0.5rem 0;
+  line-height: 1.4;
+}
+
+.test-features-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.7rem 0;
+  font-size: 9pt;
+  border: 1.4px solid #6b7280;
+  background: #ffffff;
+}
+
+.test-features-table th,
+.test-features-table td {
+  border: 1px solid #9aa0aa;
+  padding: 0.28rem 0.35rem;
+  vertical-align: middle;
+}
+
+.test-features-table th {
+  text-align: center;
+  font-weight: 700;
+  background-color: #e5e7eb;
+  color: #1f2937;
+  line-height: 1.2;
+}
+
+.test-features-table th em {
+  font-size: 0.85em;
+  color: #475569;
+}
+
+.test-features-table tbody tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+.test-features-table td:first-child {
+  width: 7%;
+  text-align: center;
+}
+
+.test-features-table td:nth-child(3) {
+  width: 14%;
+  text-align: center;
+}
+
+.test-features-table th:nth-child(4),
+.test-features-table td:nth-child(4) {
+  vertical-align: middle;
+  text-align: center;
+}
+
 /* Form Extensions */
 .radio-group {
   display: flex;

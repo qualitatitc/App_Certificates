@@ -24,12 +24,20 @@ export const declarationDocumentRefRequiredTypeIds = [
 export const DOCUMENT_REF_INVOICE = 'invoice';
 export const DOCUMENT_REF_DELIVERY = 'delivery';
 
+/** Tipos en los que el número de serie es opcional. */
+export const serialNumberOptionalTypeIds = ['cert_conf_piezas_sueltas'];
+
 export const certificateTypes = [
   {
     id: 'cert_calidad',
     name: 'Certificado de Calidad',
     enName: 'Certificate of Quality',
     text: 'El equipo o producto especificado ha sido fabricado y probado de acuerdo con los estándares de calidad vigentes de la empresa. Cumple con todas las especificaciones técnicas operativas requeridas para su correcto funcionamiento.'
+  },
+  {
+    id: 'cert_calibracion',
+    name: 'Certificado de Calibración',
+    enName: 'Calibration Certificate'
   },
   {
     id: 'cert_mat_21',
@@ -106,6 +114,12 @@ export const certificateTypes = [
     }
   },
   {
+    id: 'dec_origen',
+    name: 'Declaración de origen',
+    enName: 'Declaration of Origin',
+    text: 'Declaramos que las piezas han sido fabricadas por ITC y son originales.',
+  },
+  {
     id: 'dec_conf',
     name: 'Declaración de conformidad',
     enName: 'Declaration of Conformity',
@@ -120,6 +134,14 @@ export const certificateTypes = [
         en: 'We declare that the product has been designed and manufactured in full compliance with internal specifications and applicable regulations, in relation to the delivery note stated in the equipment data.'
       }
     }
+  },
+  {
+    id: 'cert_conf_piezas_sueltas',
+    name: 'Certificado de conformidad para piezas sueltas',
+    enName: 'Certificate of Conformity for Loose Parts',
+    printName: 'Certificado de conformidad',
+    printEnName: 'Certificate of Conformity',
+    text: 'La pieza especificada ha sido fabricada y verificada en ITC, cumpliendo con las especificaciones técnicas y de materiales detalladas en el manual de usuario, hojas técnicas o tarifa de precios.'
   },
   {
     id: 'cert_presion',

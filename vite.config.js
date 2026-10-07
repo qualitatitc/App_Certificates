@@ -7,4 +7,9 @@ import { viteSingleFile } from 'vite-plugin-singlefile'
 export default defineConfig({
   base: './',
   plugins: [react(), viteSingleFile()],
+  server: {
+    proxy: {
+      '/api': 'http://localhost:3789',
+    },
+  },
 })

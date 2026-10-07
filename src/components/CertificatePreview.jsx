@@ -8,23 +8,37 @@ import html2pdf from 'html2pdf.js';
 
 const CERT_IDS_PREAMBLE_BEFORE_PRODUCT = [
   'cert_calidad',
+  'cert_calibracion',
   'cert_mat_21',
   'cert_mat_22',
   'cert_mat_31',
   'cert_garantia',
+  'cert_conf_piezas_sueltas',
+  'dec_origen',
 ];
+
+function getOrdinalSuffix(day) {
+  if (day > 3 && day < 21) return 'th';
+  switch (day % 10) {
+    case 1: return 'st';
+    case 2: return 'nd';
+    case 3: return 'rd';
+    default: return 'th';
+  }
+}
 
 export default function CertificatePreview({ data, onBack }) {
   const certRef = useRef();
   if (!data) return null;
   const isCeConformity = data.type.id === 'dec_conf_ce';
   const isDeclarationTest22 = data.type.id === 'dec_conf_ensayo_22';
+  const isOriginDeclaration = data.type.id === 'dec_origen';
 
   const handleDownloadPDF = () => {
     const element = certRef.current;
     const opt = {
       margin: 0,
-      filename: `${data.type.name}_${data.product.code}.pdf`,
+      filename: `${(data.type.printName || data.type.name).replace(/\s+/g, '_')}_${data.product.code}.pdf`,
       image: { type: 'jpeg', quality: 1 },
       html2canvas: { 
         scale: 4, 
@@ -54,8 +68,8 @@ export default function CertificatePreview({ data, onBack }) {
         <header className="cert-header">
           <img src={companyData.logoUrl} alt="Company Logo" className="logo" />
           <div className="header-text">
-            <h1>{data.type.name}</h1>
-            <h2>{data.type.enName}</h2>
+            <h1>{data.type.printName || data.type.name}</h1>
+            <h2>{data.type.printEnName || data.type.enName}</h2>
           </div>
           <img src={companyData.isoLogoUrl} alt="ISO Logo" className="iso-logo" />
         </header>
@@ -82,6 +96,20 @@ export default function CertificatePreview({ data, onBack }) {
             const monthEs = monthsEs[dateObj.getMonth()];
             const monthEn = monthsEn[dateObj.getMonth()];
 
+            if (isOriginDeclaration) {
+              return (
+                <>
+                  <p>Santa Perpètua de Mogoda, Barcelona (España) el {day} de {monthEs} de {year}.</p>
+                  <p>
+                    <em>
+                      Santa Perpètua de Mogoda, Barcelona (Spain) {monthEn} {day}
+                      {getOrdinalSuffix(day)}, {year}.
+                    </em>
+                  </p>
+                </>
+              );
+            }
+
             return (
               <>
                 <p>Santa Perpètua de Mogoda, Barcelona (España), el {day} de {monthEs} de {year}</p>
@@ -93,23 +121,32 @@ export default function CertificatePreview({ data, onBack }) {
 
         {CERT_IDS_PREAMBLE_BEFORE_PRODUCT.includes(data.type.id) && (
           <div className="cert-preamble">
-            <p>Por el presente documento ITC certifica que el producto siguiente:</p>
-            <p><em>By this document ITC certifies that the following product:</em></p>
+            {data.type.id === 'cert_conf_piezas_sueltas' ? (
+              <>
+                <p>Por el presente documento ITC certifica que la pieza suelta siguiente:</p>
+                <p><em>By this document ITC certifies that the following loose part:</em></p>
+              </>
+            ) : (
+              <>
+                <p>Por el presente documento ITC certifica que el producto siguiente:</p>
+                <p><em>By this document ITC certifies that the following product:</em></p>
+              </>
+            )}
           </div>
         )}
 
         {data.type.id === 'dec_conf' && data.invoiceOrDeliveryNote && (
           <div className="cert-preamble">
             <p>
-              Por el presente documento ITC certificamos que los productos detallados en (
-              {data.documentRefType === DOCUMENT_REF_DELIVERY ? 'el albarán' : 'la factura'} {data.invoiceOrDeliveryNote}
-              ) cumplen con las características técnicas descritas en el manual y hojas técnicas del producto.
+              Por el presente documento ITC certificamos que los productos detallados en{' '}
+              {data.documentRefType === DOCUMENT_REF_DELIVERY ? 'el albarán' : 'la factura'} {data.invoiceOrDeliveryNote}{' '}
+              cumplen con las características técnicas descritas en el manual y hojas técnicas del producto.
             </p>
             <p>
               <em>
-                By this document ITC certifies that the products detailed in (
-                {data.documentRefType === DOCUMENT_REF_DELIVERY ? 'the delivery note' : 'the invoice'} {data.invoiceOrDeliveryNote}
-                ) comply with the technical characteristics described in the product manual and technical data sheets.
+                By this document ITC certifies that the products detailed in{' '}
+                {data.documentRefType === DOCUMENT_REF_DELIVERY ? 'the delivery note' : 'the invoice'} {data.invoiceOrDeliveryNote}{' '}
+                comply with the technical characteristics described in the product manual and technical data sheets.
               </em>
             </p>
           </div>
@@ -133,7 +170,9 @@ export default function CertificatePreview({ data, onBack }) {
               </div>
             )}
             <section className="product-info">
-              <h3>Datos del Equipo / Product Data</h3>
+              {data.type.id !== 'cert_conf_piezas_sueltas' && (
+                <h3>Datos del Equipo / Product Data</h3>
+              )}
               <table className="info-table">
                 <tbody>
                   <tr>
@@ -148,10 +187,12 @@ export default function CertificatePreview({ data, onBack }) {
                     <td><strong>Description:</strong></td>
                     <td>{data.product.enDesc}</td>
                   </tr>
-                  <tr>
-                    <td><strong>Número de Serie / S/N:</strong></td>
-                    <td style={{ whiteSpace: 'pre-wrap' }}>{data.serialNumber}</td>
-                  </tr>
+                  {data.serialNumber && (
+                    <tr>
+                      <td><strong>Número de Serie / S/N:</strong></td>
+                      <td style={{ whiteSpace: 'pre-wrap' }}>{data.serialNumber}</td>
+                    </tr>
+                  )}
                   {data.invoiceOrDeliveryNote && (
                     <tr>
                       <td>
@@ -307,6 +348,40 @@ export default function CertificatePreview({ data, onBack }) {
           </div>
         )}
 
+        {data.type.id === 'cert_conf_piezas_sueltas' && (
+          <div className="cert-body-extra">
+            <p>
+              Ha sido fabricada y verificada en ITC. Esta pieza cumple los requisitos de conformidad que
+              verifican las características técnicas detalladas en el manual, hojas técnicas o tarifa de precios.
+            </p>
+            <p>
+              <em>
+                It has been manufactured and verified at ITC. This part meets the conformity requirements that
+                verify the technical characteristics detailed in the manual, technical data sheets or price list.
+              </em>
+            </p>
+          </div>
+        )}
+
+        {data.type.id === 'cert_calibracion' && (
+          <div className="cert-body-extra">
+            <p>Ha sido fabricado calibrado y verificado en ITC siguiendo el procedimiento de prueba interno según ISO 9001:2015. Este producto cumple los requisitos de calidad que verifican las características técnicas detalladas en el manual, hojas técnicas o tarifa de precios.</p>
+            <p><em>Has been manufactured, calibrated and verified at ITC according to ITC internal test procedure as per ISO 9001:2015. This product carries out the requirements in order to fulfill the technical features detailed in the user manual, data sheet or price list.</em></p>
+            <br />
+            <p>Las pruebas se han realizado en el banco de pruebas de ITC con agua a temperatura ambiente.</p>
+            <p><em>The test has been carried out at ITC test bench, with water at room temperature.</em></p>
+          </div>
+        )}
+
+        {isOriginDeclaration && (
+          <div className="cert-body-extra cert-body-extra--origin">
+            <p>Declaramos que las piezas han sido fabricadas por ITC y son originales.</p>
+            <p>
+              <em>We declare that the parts have been manufactured by ITC and are original.</em>
+            </p>
+          </div>
+        )}
+
         {data.type.id === 'cert_garantia' && (
           <div className="cert-body-extra cert-warranty-after-product">
             <p>
@@ -335,6 +410,8 @@ export default function CertificatePreview({ data, onBack }) {
         )}
 
         {data.type.id !== 'cert_calidad' &&
+          data.type.id !== 'cert_conf_piezas_sueltas' &&
+          data.type.id !== 'dec_origen' &&
           data.type.id !== 'dec_conf' &&
           data.type.id !== 'dec_conf_ce' &&
           data.type.id !== 'dec_conf_ensayo_22' &&

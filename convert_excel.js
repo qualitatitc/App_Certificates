@@ -2,12 +2,14 @@
 import { createRequire } from 'module';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 const require = createRequire(import.meta.url);
 const XLSX = require('xlsx');
 
-const EXCEL_PATH = 'c:/Users/Usuario/Documents/Antigravity/App_certificates/src/data/Articulos certificados.xlsx';
-const OUTPUT_PATH = 'c:/Users/Usuario/Documents/Antigravity/App_certificates/src/data/products.json';
+const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)));
+const EXCEL_PATH = path.join(ROOT, 'src/data/Articulos certificados.xlsx');
+const OUTPUT_PATH = path.join(ROOT, 'src/data/products.json');
 
 try {
     console.log('Reading Excel file...');

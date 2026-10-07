@@ -12868,5 +12868,101 @@
     "code": "73-AC6P44-P95PBX",
     "esDesc": "Dostec AC bomba dosificadora 3ph pistón Control Avanzado 900 l/h 7.5bar PP 1 1/4",
     "enDesc": "Dostec AC 3ph piston dosing pump Advanced Control 900 l/h 7.5bar PP 1 1/4 (238 gph 109psi)"
+  },
+  {
+    "id": "71-049",
+    "code": "71-049",
+    "esDesc": "Cubierta exterior D50",
+    "enDesc": "Outdoor housing D50"
+  },
+  {
+    "id": "70-099",
+    "code": "70-099",
+    "esDesc": "Cubierta exterior agitador 750W",
+    "enDesc": "Outdoor housing 750W mixer"
+  },
+  {
+    "id": "61337",
+    "code": "61337",
+    "esDesc": "Tapón carga 1/2 con filtro",
+    "enDesc": "Filler plug ½” with filter"
+  },
+  {
+    "id": "71304",
+    "code": "71304",
+    "esDesc": "Tornillo M6x10 Din 913 8.8",
+    "enDesc": "Screw M6x10 Din 913 8.8"
+  },
+  {
+    "id": "71107",
+    "code": "71107",
+    "esDesc": "Piñon 2 inyecciones (120ciclos/min) D50",
+    "enDesc": "Pinion 2 stroke  (120strokes/min) D50"
+  },
+  {
+    "id": "70313",
+    "code": "70313",
+    "esDesc": "Tornillo M6x8 Din913 A2",
+    "enDesc": "Screw M6x8 Din913 A2"
+  },
+  {
+    "id": "70186",
+    "code": "70186",
+    "esDesc": "Acople eje agitador d25",
+    "enDesc": "Shaft coupling d25 AG"
+  },
+  {
+    "id": "70184",
+    "code": "70184",
+    "esDesc": "Arandela eje agitador d25",
+    "enDesc": "Washer for agitator shaft d25"
+  },
+  {
+    "id": "71313",
+    "code": "71313",
+    "esDesc": "Arandela M6 Nord-Lock",
+    "enDesc": "washer M6 Nord-lock"
+  },
+  {
+    "id": "61314",
+    "code": "61314",
+    "esDesc": "Tornillo M6x20 Din 912 A2",
+    "enDesc": "Screw M6x20 Din 912 A2"
+  },
+  {
+    "id": "60-AD11-D69IIL-000-00Ex",
+    "code": "60-AD11-D69IIL-000-00Ex",
+    "esDesc": "Dostec-40d bomba dosificadora membrana 3ph 8-5,3 l/h 16bar inox 6x12 Motor Atex",
+    "enDesc": "Dostec-40d diaphragm dosing pump 3ph Atex 8-5,3 l/h 16bar s.s. 6x12 (2.5-1.7 gph 232 psi) Atex motor"
+  },
+  {
+    "id": "60-AD21-D69IIL-000-00Ex",
+    "code": "60-AD21-D69IIL-000-00Ex",
+    "esDesc": "Dostec-40d bomba dosificadora membrana 3ph 13-9,1 l/h 16bar inox 6x12 Motor Atex",
+    "enDesc": "Dostec-40d diaphragm dosing pump 3ph 13-9,1 l/h 16bar s.s. 6x12 (4-2.9 gph 232 psi) Atex motor"
+  },
+  {
+    "id": "60-AD33-D69IIM-000-00Ex",
+    "code": "60-AD33-D69IIM-000-00Ex",
+    "esDesc": "Dostec-40d bomba dosificadora membrana 3ph 47-35 l/h 10bar inox 3/4 motor Atex",
+    "enDesc": "Dostec-40d diaphragm dosing pump 3ph 47-35 l/h 10bar s.s. 3/4 Atex motor"
+  },
+  {
+    "id": "71-LD43-D142IIX-000-00Ex",
+    "code": "71-LD43-D142IIX-000-00Ex",
+    "esDesc": "Dostec-50d bomba dosificadora membrana 3ph 535-415 l/h 10bar Inox 1 1/4 motor Atex",
+    "enDesc": "Dostec-50d diaphragm dosing pump 3ph 535-415 l/h 10bar SS 1 1/4 Atex motor"
+  },
+  {
+    "id": "71-LD53-D163IIX-000-00Ex",
+    "code": "71-LD53-D163IIX-000-00Ex",
+    "esDesc": "Dostec-50d bomba dosificadora membrana 3ph 822-648 l/h 6bar Inox 1 1/4 motor Atex",
+    "enDesc": "Dostec-50d diaphragm dosing pump 3ph 822-648 l/h 6bar SS 1 1/4 Atex motor"
+  },
+  {
+    "id": "72-R5-4D5IIX-000-00Ex",
+    "code": "72-R5-4D5IIX-000-00Ex",
+    "esDesc": "EFR bomba dosificadora 3ph membrana 1044 - 1254 l/h 5bar Inox 1 1/4 Motor Atex",
+    "enDesc": "EFR diaphragm dosing pump 3ph 1044 - 1254 l/h (276 - 331gph) 5bar (73psi) Inox 1 1/4 Atex motor"
   }
 ]

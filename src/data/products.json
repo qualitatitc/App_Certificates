@@ -2850,6 +2850,12 @@
     "enDesc": "Dostec-40d diaphragm dosing pump 3ph 22-15,2l/h 16bar PP 6x12 (7-4,8 gph 232 psi)"
   },
   {
+    "id": "60-AD31-D69PEL-000-000",
+    "code": "60-AD31-D69PEL-000-000",
+    "esDesc": "Dostec-40d bomba dosificadora membrana 3ph 22-15,2l/h 16b;",
+    "enDesc": "Dostec-40d diaphragm dosing pump 3ph 22-15,2 l/h 16bar PP-EI"
+  },
+  {
     "id": "60-AD32-D115FFM",
     "code": "60-AD32-D115FFM",
     "esDesc": "Dostec-40d bomba dosificadora membrana 3ph 105-119 l/h 5bar PVDF 3/4",
@@ -3058,6 +3064,12 @@
     "code": "60-AD41-D69PEM",
     "esDesc": "Dostec-40d bomba dosificadora membrana 3ph 44-32 l/h 15bar PP 3/4\"",
     "enDesc": "Dostec-40d diaphragm dosing pump 3ph 44-32 l/h 15bar PP 3/4\" (14-9.6 gph 217 psi)"
+  },
+  {
+    "id": "60-AD41-D69PIK-000-000",
+    "code": "60-AD41-D69PIK-000-000",
+    "esDesc": "Dostec-40d membrana 3ph 44-32 l/h 15bar PP-FPM-INOX-3/4\"",
+    "enDesc": "Dostec-40d diaphragm 3ph 44-32 l/h 15bar PP-FPM-SS-3/4\""
   },
   {
     "id": "60-AD42-D115FFM",
@@ -11734,6 +11746,12 @@
     "code": "73-AC2D42-D69PBM",
     "esDesc": "Dostec AC bomba dosificadora membrana Control Avanzado 92-68 l/h 10bar PP 3/4",
     "enDesc": "Dostec AC diaphragm dosing pump Advanced Control 92-68 l/h 10bar PP 3/4 (24.6-18 gph 145psi)"
+  },
+  {
+    "id": "73-AC2D42-D69PBM-000-000",
+    "code": "73-AC2D42-D69PBM-000-000",
+    "esDesc": "Dostec AC membrana 92-68 l/h 10bar PP-FPM-BORO-3/4\"",
+    "enDesc": "Dostec AC diaphragm 92-68 l/h 10bar PP-FPM-BORO-3/4\""
   },
   {
     "id": "73-AC2D42-D69PBM-000-000-0I",

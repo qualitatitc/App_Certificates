@@ -60,12 +60,6 @@ export const certificateTypes = [
     enName: 'Warranty Certificate'
   },
   {
-    id: 'cert_ensayo_22',
-    name: 'Certificado de informe de ensayo 2.2',
-    enName: 'Test Report Certificate 2.2',
-    text: 'Resultados de los ensayos realizados que avalan el correcto rendimiento y resistencia del producto bajo las condiciones de trabajo especificadas.'
-  },
-  {
     id: 'dec_conf_ce',
     name: 'Declaración de conformidad CE',
     enName: 'EC Declaration of Conformity',
